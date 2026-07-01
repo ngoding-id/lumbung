@@ -10,6 +10,7 @@ pkgbase = vesktop-electron
 	makedepends = pnpm
 	makedepends = npm
 	makedepends = nodejs
+	makedepends = electron40
 	depends = electron40
 	depends = alsa-lib
 	depends = gtk3

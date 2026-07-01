@@ -15,7 +15,7 @@ license=('GPL-3.0-only')
 
 install=${pkgname}.install
 depends=('electron40' 'alsa-lib' 'gtk3' 'nss')
-makedepends=('pnpm' 'npm' 'nodejs')
+makedepends=('pnpm' 'npm' 'nodejs' 'electron40')
 optdepends=(
   'libnotify: Notifications'
   'xdg-utils: Open links, files, etc'
@@ -34,7 +34,7 @@ build() {
   cd "$srcdir/$_pkgname-$pkgver"
 
   # Use system's electron
-  sed -i "/linux/s/^/        \"electronDist\": \"\\/usr\\/lib\\/electron\",\n/" package.json
+  sed -i "/linux/s/^/        \"electronDist\": \"\\/usr\\/lib\\/electron40\",\n/" package.json
 
   pnpm i --frozen-lockfile
   pnpm package:dir
