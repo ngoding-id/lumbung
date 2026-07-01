@@ -1,0 +1,13 @@
+post_install() {
+    echo "vesktop-electron"
+    echo "========================================="
+    echo "Unofficial package. Don't report issues to upstream!"
+    echo "https://github.com/ngoding-id/lumbung/issues"
+}
+
+post_upgrade() {
+    echo "vesktop-electron"
+    echo "========================================="
+    echo "Unofficial package. Don't report issues to upstream!"
+    echo "https://github.com/ngoding-id/lumbung/issues"
+}
