@@ -1,0 +1,243 @@
+name: Build AUR Packages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*/PKGBUILD"
+      - ".github/workflows/build.yml"
+  schedule:
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+    inputs:
+      force_rebuild:
+        description: "Rebuild every package regardless of version changes"
+        type: boolean
+        default: false
+
+permissions: {}
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  REPO_NAME: lumbung
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    container:
+      image: archlinux:base-devel
+    permissions:
+      contents: write
+
+    steps:
+      - name: Setup Arch Linux environment
+        run: |
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm git gnupg pacman-contrib namcap jq
+
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@2dc316deee8e90f13e1a351ab510b4d5bc0c82cd
+        id: import_gpg
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+
+      - name: Create build user
+        run: |
+          useradd -m builder
+          echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          chown -R builder:builder .
+
+      - name: Set x86_64-v3 build flags
+        run: |
+          install -d -m 755 /etc/makepkg.conf.d
+          install -m 644 .github/files/20-build-flags.conf /etc/makepkg.conf.d/20-build-flags.conf
+
+      - name: Configure GPG for makepkg signing
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: |
+          # Import GPG key directly into builder's keyring
+          su builder -c "mkdir -p /home/builder/.gnupg && chmod 700 /home/builder/.gnupg"
+          # Write passphrase to a persistent file for builder's gpg.conf
+          PASSFILE=/home/builder/.gnupg/.passphrase
+          echo "$GPG_PASSPHRASE" > "$PASSFILE"
+          chown builder:builder "$PASSFILE"
+          chmod 600 "$PASSFILE"
+          # Configure builder's gpg to always use loopback pinentry with passphrase file
+          install -m 644 -o builder -g builder .github/files/gpg.conf /home/builder/.gnupg/gpg.conf
+          install -m 644 -o builder -g builder .github/files/gpg-agent.conf /home/builder/.gnupg/gpg-agent.conf
+          # Import the private key for builder
+          echo "$GPG_PRIVATE_KEY" | su builder -c "gpg --batch --yes --no-tty --import" 2>&1
+          # Verify the imported key is not a stub
+          su builder -c "gpg --list-secret-keys --keyid-format long" 2>&1
+          if su builder -c "gpg --list-secret-keys" 2>&1 | grep -q 'sec#'; then
+            echo "::warning::Primary secret key is a stub (sec#). Checking if a signing-capable subkey exists..."
+            if ! su builder -c "gpg --list-secret-keys" 2>&1 | grep -qE 'ssb[^#].*\[.*S.*\]'; then
+              echo "::error::No signing-capable secret key found. The primary key is a stub and no subkey has [S] capability."
+              echo "::error::Fix: re-export with: gpg --armor --export-secret-keys B33529DF9D012321"
+              exit 1
+            fi
+          fi
+          # Restart builder's gpg-agent to pick up new config
+          su builder -c "gpgconf --kill gpg-agent"
+          # Also configure root gpg for repo-add signing
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          PASSFILE_ROOT=$(mktemp)
+          echo "$GPG_PASSPHRASE" > "$PASSFILE_ROOT"
+          chmod 600 "$PASSFILE_ROOT"
+          echo "passphrase-file $PASSFILE_ROOT" >> ~/.gnupg/gpg.conf
+
+      - name: Fetch previous release assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          bash .github/scripts/fetch-previous-release.sh previous
+
+      - name: Detect updates
+        id: detect
+        env:
+          FORCE_REBUILD: ${{ inputs.force_rebuild }}
+        run: |
+          bash .github/scripts/detect-updates.sh previous
+
+      - name: Build packages
+        if: steps.detect.outputs.built_any == 'true'
+        run: |
+          mkdir -p output
+          for pkg_dir in ${{ steps.detect.outputs.pkgs_to_build }}; do
+            [ -f "${pkg_dir}/PKGBUILD" ] || continue
+            echo "::group::Building ${pkg_dir}"
+            cd "$pkg_dir"
+            su builder -c "makepkg -s --noconfirm --sign --skippgpcheck"
+            cp *.pkg.tar.zst *.pkg.tar.zst.sig ../output/ 2>/dev/null || true
+            cd ..
+            echo "::endgroup::"
+          done
+
+      - name: Carry over unchanged tarballs
+        if: steps.detect.outputs.release_changed == 'true'
+        run: |
+          mkdir -p output
+          shopt -s nullglob
+          # Build a set of active pkgnames from the current repository state.
+          declare -A active=()
+          for name in ${{ steps.detect.outputs.current_pkg_names }}; do
+            active["$name"]=1
+          done
+          # Build a set of pkgnames already rebuilt (from output/).
+          declare -A rebuilt=()
+          for tarball in output/*.pkg.tar.zst; do
+            base="$(basename "$tarball")"
+            # Arch tarball name: <pkgname>-<pkgver>-<pkgrel>-<arch>.pkg.tar.zst
+            # Strip the last 3 dash-separated fields to recover pkgname.
+            name="$(echo "$base" | sed -E 's/-[^-]+-[^-]+-[^-]+\.pkg\.tar\.zst$//')"
+            rebuilt["$name"]=1
+          done
+          for tarball in previous/*.pkg.tar.zst; do
+            base="$(basename "$tarball")"
+            name="$(echo "$base" | sed -E 's/-[^-]+-[^-]+-[^-]+\.pkg\.tar\.zst$//')"
+            if [ -z "${active[$name]:-}" ]; then
+              echo "Skipping carry-over for $name (package no longer exists in repo)."
+              continue
+            fi
+            if [ -n "${rebuilt[$name]:-}" ]; then
+              echo "Skipping carry-over for $name (rebuilt this run)."
+              continue
+            fi
+            echo "Carrying over $base"
+            cp "$tarball" output/
+            if [ -f "${tarball}.sig" ]; then
+              cp "${tarball}.sig" output/
+            else
+              echo "::warning::No signature found for carried-over $base"
+            fi
+          done
+          ls -la output/
+
+      - name: Create pacman repository
+        if: steps.detect.outputs.release_changed == 'true'
+        run: |
+          cd output
+          GPG_KEY_ID="${{ steps.import_gpg.outputs.keyid }}"
+          shopt -s nullglob
+          tarballs=( *.pkg.tar.zst )
+          if [ ${#tarballs[@]} -gt 0 ]; then
+            repo-add --sign --key "$GPG_KEY_ID" ${REPO_NAME}.db.tar.zst "${tarballs[@]}"
+          else
+            echo "No package tarballs remain; creating empty repository metadata."
+            tar --zstd -cf ${REPO_NAME}.db.tar.zst --files-from /dev/null
+            tar --zstd -cf ${REPO_NAME}.files.tar.zst --files-from /dev/null
+            gpg --batch --yes --detach-sign --local-user "$GPG_KEY_ID" ${REPO_NAME}.db.tar.zst
+            gpg --batch --yes --detach-sign --local-user "$GPG_KEY_ID" ${REPO_NAME}.files.tar.zst
+            cp ${REPO_NAME}.db.tar.zst ${REPO_NAME}.db
+            cp ${REPO_NAME}.db.tar.zst.sig ${REPO_NAME}.db.sig
+            cp ${REPO_NAME}.files.tar.zst ${REPO_NAME}.files
+            cp ${REPO_NAME}.files.tar.zst.sig ${REPO_NAME}.files.sig
+          fi
+          # repo-add creates symlinks; replace with actual files for release upload
+          for link in ${REPO_NAME}.db ${REPO_NAME}.db.sig ${REPO_NAME}.files ${REPO_NAME}.files.sig; do
+            if [ -L "$link" ]; then
+              target=$(readlink "$link")
+              rm "$link"
+              cp "$target" "$link"
+            fi
+          done
+
+      - name: Generate release tag
+        id: tag
+        if: steps.detect.outputs.release_changed == 'true'
+        run: |
+          TAG="v$(date +'%Y.%m.%d-%H%M%S')"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        if: steps.detect.outputs.release_changed == 'true'
+        uses: softprops/action-gh-release@a06a81a03ee405af7f2048a818ed3f03bbf83c7b
+        with:
+          tag_name: ${{ steps.tag.outputs.tag }}
+          name: "Package Build ${{ steps.tag.outputs.tag }}"
+          body: |
+            Automated AUR package build for **x86_64-v3**.
+
+            ### Usage
+
+            Import & trust locally the GPG Key:
+
+            ```bash
+            sudo pacman-key --keyserver keyserver.ubuntu.com --recv-keys A4468143841CA99F1D776A4246FFD74AD50739CB
+            sudo pacman-key --lsign-key A4468143841CA99F1D776A4246FFD74AD50739CB
+            ```
+
+            Add the following to your `/etc/pacman.conf`:
+
+            ```conf
+            [${{ env.REPO_NAME }}]
+            SigLevel = Required DatabaseOptional
+            Server = https://github.com/${{ github.repository }}/releases/latest/download
+            ```
+          files: output/*
+
+      - name: Delete older releases
+        if: steps.detect.outputs.release_changed == 'true'
+        uses: sgpublic/delete-release-action@0972c6da28d8829cdc95fae0e71afcb9079dadc9 # v1.2
+        with:
+          release-drop: true
+          release-keep-count: 0
+          release-drop-tag: true
+          pre-release-drop: true
+          pre-release-keep-count: -1
+          pre-release-drop-tag: true
+          draft-drop: true
+          draft-drop-count: -1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
