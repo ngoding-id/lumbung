@@ -1,0 +1,32 @@
+pkgbase = gitte
+	pkgdesc = A GTK4/libadwaita Git client for the GNOME desktop
+	pkgver = 0.8.1
+	pkgrel = 1
+	url = https://codeberg.org/ckruse/Gitte
+	arch = x86_64
+	arch = aarch64
+	arch = riscv64
+	license = AGPL-3.0-or-later
+	makedepends = cargo
+	makedepends = git
+	makedepends = meson
+	makedepends = ninja
+	depends = cairo
+	depends = dconf
+	depends = glib2
+	depends = glibc
+	depends = graphene
+	depends = gtk4
+	depends = hicolor-icon-theme
+	depends = libadwaita
+	depends = libgcc
+	depends = libgit2
+	depends = libssh2
+	depends = openssl
+	depends = pango
+	depends = xz
+	depends = zlib
+	source = git+https://codeberg.org/ckruse/Gitte.git#tag=0.8.1
+	sha256sums = 920f127238638c669b890b9126117fd3f5b763d0e7edf42fa75f39a221088b5a
+
+pkgname = gitte

@@ -1,0 +1,5 @@
+[gitte]
+source = "gitea"
+gitea = "ckruse/Gitte"
+host = "codeberg.org"
+use_max_tag = true
