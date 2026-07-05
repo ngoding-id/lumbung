@@ -1,0 +1,5 @@
+[ksteamtrayicon]
+source = "github"
+github = "marcotuliomatos/ksteamtrayicon"
+use_max_tag = true
+prefix = "v"
