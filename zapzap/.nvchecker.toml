@@ -1,0 +1,4 @@
+[zapzap]
+source = "github"
+github = "rafatosta/zapzap"
+use_latest_release = true

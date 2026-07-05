@@ -1,0 +1,6 @@
+[jdk21-jetbrains-bin]
+source = "github"
+github = "JetBrains/JetBrainsRuntime"
+use_max_tag = true
+include_regex = 'jbr-release-21\..*'
+prefix = "jbr-release-"
