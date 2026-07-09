@@ -1,7 +1,7 @@
 # Maintainer: ngoding-id/lumbung <defy-disarray-jury at duck dot com>
 
 pkgname=Uplink
-pkgver=0.25.56
+pkgver=2026.7.0
 pkgrel=1
 pkgdesc="A fast, secure, IRCv3-featured IRC client built with Qt6 and C++."
 arch=('x86_64')
@@ -20,7 +20,7 @@ makedepends=(
     'cmake'
 )
 source=("$pkgname-$pkgver.tar.gz::https://github.com/noderelay/UplinkIRC/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('70b48620c7c971fb2cd524adefc038b4d93bc6f6c6e8983bdb20137fe606c499')
+sha256sums=('ab94417ca41ac497ebc836043430898eafe5612577ebd96da200abe2656a0361')
 
 build() {
   cd "UplinkIRC-$pkgver"
