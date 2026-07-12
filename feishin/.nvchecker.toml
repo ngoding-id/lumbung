@@ -1,4 +1,4 @@
-[zapzap]
+[feishin]
 source = "github"
 github = "jeffvli/feishin"
 use_latest_release = true
