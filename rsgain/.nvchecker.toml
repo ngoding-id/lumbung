@@ -1,0 +1,5 @@
+[rsgain]
+source = "github"
+github = "complexlogic/rsgain"
+use_latest_release = true
+prefix = "v"
