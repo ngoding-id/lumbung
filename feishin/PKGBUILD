@@ -1,0 +1,44 @@
+pkgname=feishin
+pkgver=1.14.0
+pkgdesc='Modern music player with support for navidrome servers'
+pkgrel=1
+arch=('x86_64')
+license=('GPL-3.0-only')
+install=${pkgname}.install
+depends=('electron41')
+optdepends=('mpv: Alternative audio backend')
+makedepends=('pnpm' 'git' 'libxcrypt-compat' 'electron41')
+url='https://github.com/jeffvli/feishin'
+provides=("feishin")
+conflicts=("feishin-bin" "feishin-git")
+source=(
+    "$pkgname::git+$url#tag=v${pkgver}"
+    "feishin.desktop"
+    "feishin.sh"
+    "0001-feat-only-set-dir-as-target-for-linux.patch")
+sha512sums=('d945a20489a91d9a028fbdf508a08fd6db31c4d18019b0ebb309690fcb134d8f8614aef872dc981749918228c4bacb8828879ae13a9c8db48e55758da50919ea'
+            '3e896c5f1164361e613e54d8f18100e925cc0719741a3c939f0424037e28fef8ec6b3c3d5c4e9c0a544b8f1db2e112873942d6ed2047cb46b241c56c3bcbb209'
+            '10aff7706186e33366691746e9b1d5cea515fb894ff627d283b080c1e97fecb9be5122aebcd49807191a65e405a46ff48fc4181553e163cd3e1ae98cfb2b6646'
+            '08eacbef0313d38665aac8bd1314790eda10a8b8ceda9f7d9841b1ee4cfe7379431e7aba12441a4eb19ac656334c2e67a4262ae1367333c7e86702d9e8f64ddb')
+
+prepare() {
+  cd "$pkgname"
+  patch -p1 -i "../0001-feat-only-set-dir-as-target-for-linux.patch"
+}
+
+build() {
+  cd $pkgname
+  pnpm install --force
+  pnpm run package:linux --publish never
+}
+
+package() {
+  mkdir -p "${pkgdir}/usr/bin"
+  mkdir -p "${pkgdir}/usr/lib/feishin"
+  mkdir -p "${pkgdir}/usr/share/applications"
+  cp -r "${srcdir}/${pkgname}/dist/linux-unpacked/resources/assets" "${pkgdir}/usr/lib/feishin/"
+  install -Dm644 "${srcdir}/${pkgname%-electron-bin}/dist/linux-unpacked/resources/app.asar" "${pkgdir}/usr/lib/feishin/"
+  install -Dm644 "${srcdir}/${pkgname%-electron-bin}/assets/icons/icon.png" "${pkgdir}/usr/share/pixmaps/feishin.png"
+  install -Dm644 feishin.desktop "${pkgdir}/usr/share/applications/"
+  install -Dm755 feishin.sh "${pkgdir}/usr/bin/${pkgname%-electron-git}"
+}

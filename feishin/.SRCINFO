@@ -1,0 +1,26 @@
+pkgbase = feishin
+	pkgdesc = Modern music player with support for navidrome servers
+	pkgver = 1.14.0
+	pkgrel = 1
+	url = https://github.com/jeffvli/feishin
+	arch = x86_64
+	license = GPL-3.0-only
+	makedepends = pnpm
+	makedepends = git
+	makedepends = libxcrypt-compat
+	makedepends = electron41
+	depends = electron41
+	optdepends = mpv: Alternative audio backend
+	provides = feishin
+	conflicts = feishin-bin
+	conflicts = feishin-git
+	source = feishin::git+https://github.com/jeffvli/feishin#tag=v1.14.0
+	source = feishin.desktop
+	source = feishin.sh
+	source = 0001-feat-only-set-dir-as-target-for-linux.patch
+	sha512sums = d945a20489a91d9a028fbdf508a08fd6db31c4d18019b0ebb309690fcb134d8f8614aef872dc981749918228c4bacb8828879ae13a9c8db48e55758da50919ea
+	sha512sums = 3e896c5f1164361e613e54d8f18100e925cc0719741a3c939f0424037e28fef8ec6b3c3d5c4e9c0a544b8f1db2e112873942d6ed2047cb46b241c56c3bcbb209
+	sha512sums = 10aff7706186e33366691746e9b1d5cea515fb894ff627d283b080c1e97fecb9be5122aebcd49807191a65e405a46ff48fc4181553e163cd3e1ae98cfb2b6646
+	sha512sums = 08eacbef0313d38665aac8bd1314790eda10a8b8ceda9f7d9841b1ee4cfe7379431e7aba12441a4eb19ac656334c2e67a4262ae1367333c7e86702d9e8f64ddb
+
+pkgname = feishin
