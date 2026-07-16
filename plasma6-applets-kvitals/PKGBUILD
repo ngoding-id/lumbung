@@ -18,7 +18,7 @@ conflicts=('plasma6-applets-kvitals-git')
 package() {
   _path="$pkgdir/usr/share/plasma/plasmoids/org.kde.plasma.kvitals"
   mkdir -p "$_path"
-  cp -r "$pkgname-$pkgver/contents" "$_path"
-  cp -r "$pkgname-$pkgver/metadata.json" "$_path"
-  install -Dm 644 "$pkgname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  cp -r "$_gitname-$pkgver/contents" "$_path"
+  cp -r "$_gitname-$pkgver/metadata.json" "$_path"
+  install -Dm 644 "$_gitname-$pkgver/LICENSE" "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
