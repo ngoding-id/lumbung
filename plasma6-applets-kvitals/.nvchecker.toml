@@ -1,0 +1,5 @@
+[plasma6-applets-kvitals]
+source = "github"
+github = "yassine20011/kvitals"
+use_latest_release = true
+prefix = "v"
