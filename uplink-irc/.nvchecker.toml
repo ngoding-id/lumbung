@@ -1,4 +1,4 @@
-[Uplink]
+[uplink-irc]
 source = "github"
 github = "noderelay/UplinkIRC"
 use_max_tag = true
