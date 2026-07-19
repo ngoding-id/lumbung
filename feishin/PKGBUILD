@@ -1,5 +1,5 @@
 pkgname=feishin
-pkgver=1.14.0
+pkgver=1.15.0
 pkgdesc='Modern music player with support for navidrome servers'
 pkgrel=1
 arch=('x86_64')
@@ -16,7 +16,7 @@ source=(
     "feishin.desktop"
     "feishin.sh"
     "0001-feat-only-set-dir-as-target-for-linux.patch")
-sha512sums=('d945a20489a91d9a028fbdf508a08fd6db31c4d18019b0ebb309690fcb134d8f8614aef872dc981749918228c4bacb8828879ae13a9c8db48e55758da50919ea'
+sha512sums=('358bee0903b8c4692905d18735ce21904f861dc54660f1f3c6e81dfab4ca9ca50e32a153354dd1421970317c9b087dee097e4bd942c2f4f1578382cbf69242f8'
             '3e896c5f1164361e613e54d8f18100e925cc0719741a3c939f0424037e28fef8ec6b3c3d5c4e9c0a544b8f1db2e112873942d6ed2047cb46b241c56c3bcbb209'
             '10aff7706186e33366691746e9b1d5cea515fb894ff627d283b080c1e97fecb9be5122aebcd49807191a65e405a46ff48fc4181553e163cd3e1ae98cfb2b6646'
             '08eacbef0313d38665aac8bd1314790eda10a8b8ceda9f7d9841b1ee4cfe7379431e7aba12441a4eb19ac656334c2e67a4262ae1367333c7e86702d9e8f64ddb')
