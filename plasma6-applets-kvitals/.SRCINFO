@@ -1,6 +1,6 @@
 pkgbase = plasma6-applets-kvitals
 	pkgdesc = A lightweight KDE Plasma 6 panel widget that displays live system vitals directly in your top bar.
-	pkgver = 2.12.0
+	pkgver = 2.13.0
 	pkgrel = 1
 	url = https://github.com/yassine20011/kvitals
 	arch = any
@@ -8,7 +8,7 @@ pkgbase = plasma6-applets-kvitals
 	depends = libplasma
 	provides = plasma6-applets-kvitals-git
 	conflicts = plasma6-applets-kvitals-git
-	source = plasma6-applets-kvitals-2.12.0.tar.gz::https://github.com/yassine20011/kvitals/archive/refs/tags/v2.12.0.tar.gz
-	sha256sums = c4bb21d2749da1dbf9f914051f03f187cdabd49ee238b89f3069bce34164b306
+	source = plasma6-applets-kvitals-2.13.0.tar.gz::https://github.com/yassine20011/kvitals/archive/refs/tags/v2.13.0.tar.gz
+	sha256sums = 8a02979354cba0a7b16867f589bed28d5a98dc3a746ab81202a11ef7e239e663
 
 pkgname = plasma6-applets-kvitals
