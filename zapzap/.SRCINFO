@@ -1,6 +1,6 @@
 pkgbase = zapzap
 	pkgdesc = WhatsApp desktop application written in Pyqt6 + PyQt6-WebEngine.
-	pkgver = 7.3
+	pkgver = 7.4
 	pkgrel = 1
 	url = https://github.com/rafatosta/zapzap
 	install = zapzap.install
@@ -21,7 +21,7 @@ pkgbase = zapzap
 	depends = python-pydantic>=1.9.1
 	depends = python-typing_extensions>=4.6.1
 	optdepends = hunspell: spell check
-	source = git+https://github.com/rafatosta/zapzap#tag=7.3
-	b2sums = d955248943bf5c0f5e58cc303d908421d3ec49d1a0ae48cf06b5b6dd7594d9d466fa87be475b8d83fcde8eac98ee27c2ac68a25853d1c168a24dc0c4f3227ead
+	source = git+https://github.com/rafatosta/zapzap#tag=7.4
+	b2sums = 4ab2d4f0c77a99d4dcfe1d9999a3c0675edd5ea1741dbf8a5f97b619ded6010890c05f3c88c6554cfa0cef034a66f70590d1396ee4f6323ffdc7191768c8407e
 
 pkgname = zapzap
