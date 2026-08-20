@@ -1,4 +1,4 @@
-[gelly]
+[bobby]
 source = "github"
 github = "hbons/Bobby"
 use_max_tag = true
