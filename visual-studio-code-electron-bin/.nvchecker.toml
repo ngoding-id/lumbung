@@ -1,0 +1,4 @@
+[visual-studio-code-electron-bin]
+source = "github"
+github = "microsoft/vscode"
+use_max_tag = true
