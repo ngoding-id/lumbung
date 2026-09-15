@@ -33,7 +33,7 @@ if [[ "${_WAYLAND_OPTION}" == true ]]; then
 fi
 cd "${_APPDIR}"
 if [[ "${EUID}" -ne 0 ]] || [[ "${ELECTRON_RUN_AS_NODE}" ]]; then
-    exec electron41 "${_RUNNAME}" "${_OPTIONS}" "${flags[@]}" "$@" || exit $?
+    exec electron43 "${_RUNNAME}" "${_OPTIONS}" "${flags[@]}" "$@" || exit $?
 else
-    exec electron41 "${_RUNNAME}" "${_OPTIONS}" --no-sandbox "${flags[@]}" "$@" || exit $?
+    exec electron43 "${_RUNNAME}" "${_OPTIONS}" --no-sandbox "${flags[@]}" "$@" || exit $?
 fi

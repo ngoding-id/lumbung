@@ -1,11 +1,11 @@
 pkgname=feishin
-pkgver=1.15.1
+pkgver=1.16.0
 pkgdesc='Modern music player with support for navidrome servers'
 pkgrel=1
 arch=('x86_64')
 license=('GPL-3.0-only')
 install=${pkgname}.install
-depends=('electron41')
+depends=('electron43')
 optdepends=('mpv: Alternative audio backend')
 makedepends=('pnpm' 'git' 'libxcrypt-compat' 'electron41')
 url='https://github.com/jeffvli/feishin'
@@ -16,9 +16,9 @@ source=(
     "feishin.desktop"
     "feishin.sh"
     "0001-feat-only-set-dir-as-target-for-linux.patch")
-sha512sums=('50a780b7d5d4f147254b4682249fe98a0422734708898ef352e794bc5cc51c65c4516ab481ea4fb172d1209ca8e704c866f2ff19b355d5c6b8a8074f6fb3acb9'
+sha512sums=('efd00437409df09b65059da8a3e62bb3c6353adae0a1fba2f6e1731663dbf18cb6f9cc8ac522b8683122f50fd87c493e30adbcb07c63b954410ca10f8b1860da'
             '3e896c5f1164361e613e54d8f18100e925cc0719741a3c939f0424037e28fef8ec6b3c3d5c4e9c0a544b8f1db2e112873942d6ed2047cb46b241c56c3bcbb209'
-            '10aff7706186e33366691746e9b1d5cea515fb894ff627d283b080c1e97fecb9be5122aebcd49807191a65e405a46ff48fc4181553e163cd3e1ae98cfb2b6646'
+            '72d15f110725e16a6683a2c54bac6df49e7e4ef13bafdb141bef669f75ad790fd2ee3b01c15fdf7ded43b790e6ce1e059c1cf05345868792f216512177eb8e58'
             '08eacbef0313d38665aac8bd1314790eda10a8b8ceda9f7d9841b1ee4cfe7379431e7aba12441a4eb19ac656334c2e67a4262ae1367333c7e86702d9e8f64ddb')
 
 prepare() {
