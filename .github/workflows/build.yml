@@ -96,6 +96,16 @@ jobs:
           chmod 600 "$PASSFILE_ROOT"
           echo "passphrase-file $PASSFILE_ROOT" >> ~/.gnupg/gpg.conf
 
+          su builder -c "sudo pacman-key --init"
+          su builder -c "sudo pacman-key --keyserver keyserver.ubuntu.com --recv-keys A4468143841CA99F1D776A4246FFD74AD50739CB"
+          su builder -c "sudo pacman-key --lsign-key A4468143841CA99F1D776A4246FFD74AD50739CB"
+
+      - name: Install AUR Helper (paru)
+        run: |
+          su builder -c "git clone https://aur.archlinux.org/paru.git /home/builder/paru"
+          su builder -c "cd /home/builder/paru && makepkg -si --nosign --noconfirm"
+          su builder -c "rm -rf /home/builder/paru"
+
       - name: Fetch previous release assets
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -118,7 +128,7 @@ jobs:
             [ -f "${pkg_dir}/PKGBUILD" ] || continue
             echo "::group::Building ${pkg_dir}"
             cd "$pkg_dir"
-            su builder -c "makepkg -s --noconfirm --sign --skippgpcheck"
+            su builder -c "paru -Bi --noconfirm --mflags '--sign --skippgpcheck' ."
             cp *.pkg.tar.zst *.pkg.tar.zst.sig ../output/ 2>/dev/null || true
             cd ..
             echo "::endgroup::"
