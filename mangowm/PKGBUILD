@@ -1,0 +1,28 @@
+# Maintainer: Matt Quintanilla <matt @ matt quintanilla .xyz>
+pkgname=mangowm
+_pkgname=mango
+pkgver=0.17.0
+pkgrel=1
+pkgdesc="A Wayland compositor with smooth animation"
+url="https://github.com/mangowm/mango"
+arch=("x86_64" "aarch64")
+license=("GPL-3.0-or-later")
+depends=('glibc' 'wayland-protocols' 'pango' 'wayland' 'libinput' 'libdrm' 'pixman' 'libdisplay-info' 'libliftoff' 'seatd' 'xorg-xwayland' 'libxcb' 'libxkbcommon' 'pcre2' 'libwlroots-0.20.so' 'scenefx0.5' 'cjson')
+provides=('wayland-compositor' 'mangowm')
+conflicts=('mangowm' 'mangowm-wlonly-git' 'mangowc' 'mangowc-git' 'mangowc-wllonly-git')
+replaces=('mangowc')
+makedepends=('meson' 'ninja' 'wayland-protocols')
+
+source=("$_pkgname-$pkgver.tar.gz::https://github.com/mangowm/mango/archive/refs/tags/$pkgver.tar.gz")
+sha256sums=('9246b8e49cd0d9953952af8750ef8db83dd947cbcee4e2bdec722b3ca3bde46c')
+
+build() {
+  cd "$_pkgname-$pkgver"
+  meson build --prefix /usr
+}
+
+package() {
+  cd "$_pkgname-$pkgver"
+  DESTDIR="$pkgdir/" ninja -C build install
+}
+

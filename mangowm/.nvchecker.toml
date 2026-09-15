@@ -1,0 +1,4 @@
+[mango]
+source = "github"
+github = "mangowm/mango"
+use_max_tag = true
