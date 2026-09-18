@@ -1,7 +1,7 @@
 pkgbase = niri-float-sticky-git
 	pkgdesc = A utility to make floating windows visible across all workspaces in niri
 	pkgver = 0.0.9.r64.gb3e79bd
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/probeldev/niri-float-sticky
 	arch = x86_64
 	license = MIT
