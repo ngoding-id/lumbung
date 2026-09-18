@@ -1,0 +1,5 @@
+[nautilus-my-computer]
+source = "github"
+github = "yannmasoch/nautilus-my-computer"
+use_max_tag = true
+prefix = "v"
