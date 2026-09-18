@@ -1,4 +1,4 @@
-pkgname="niri-float-sticky"
+pkgname="niri-float-sticky-git"
 pkgver=0.0.9.r64.gb3e79bd
 pkgrel=1
 pkgdesc="A utility to make floating windows visible across all workspaces in niri"
@@ -6,6 +6,7 @@ url="https://github.com/probeldev/niri-float-sticky"
 license=("MIT")
 arch=("x86_64")
 provides=("${pkgname%-git}")
+replaces=("niri-float-sticky")
 depends=("niri")
 makedepends=("go")
 options=("!strip")
