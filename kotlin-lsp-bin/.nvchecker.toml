@@ -1,5 +1,0 @@
-[kotlin-lsp]
-source = "github"
-github = "Kotlin/kotlin-lsp"
-use_max_tag = true
-prefix = "kotlin-lsp/v"
