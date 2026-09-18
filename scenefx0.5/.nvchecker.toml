@@ -1,0 +1,4 @@
+[scenefx0.5]
+source = "aur"
+aur = "scenefx0.5"
+strip_release = true
