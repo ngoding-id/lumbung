@@ -1,15 +1,22 @@
 # Maintainer: Yann Masoch <231734284+yannmasoch@users.noreply.github.com>
 pkgname=nautilus-my-computer
 pkgver=0.13.2
-pkgrel=1
+pkgrel=2
 pkgdesc="My Computer for Nautilus, what GNOME Files should have always been"
 arch=('any')
 url="https://github.com/yannmasoch/nautilus-my-computer"
 license=('MIT')
-depends=('python-nautilus' 'libadwaita')
+depends=('python-nautilus' 'libadwaita' 'python-cairo')
 makedepends=('gettext')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/yannmasoch/nautilus-my-computer/archive/refs/tags/v$pkgver.tar.gz")
-sha256sums=('087cbab3bad97ba648efc76abd661e2166752a6bd0bed789b37e5cc5f0dbe557')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/yannmasoch/nautilus-my-computer/archive/refs/tags/v$pkgver.tar.gz"
+        "183.patch")
+sha256sums=('087cbab3bad97ba648efc76abd661e2166752a6bd0bed789b37e5cc5f0dbe557'
+            'fd0678fb1e244a8954d8f97ab85dd7e82afa443488d3b8d09dbd1dc023b08d0c')
+
+prepare() {
+  cd "${pkgname}-${pkgver}"
+  patch -p1 -i "${srcdir}/183.patch"
+}
 
 build() {
 	cd "$pkgname-$pkgver"
