@@ -110,16 +110,48 @@ jobs:
         run: |
           bash .github/scripts/detect-updates.sh previous
 
+      - name: Configure local pacman repository for intra-repo dependencies
+        if: steps.detect.outputs.built_any == 'true'
+        run: |
+          mkdir -p /opt/localrepo
+          shopt -s nullglob
+          prev_pkgs=( previous/*.pkg.tar.zst )
+          if [ ${#prev_pkgs[@]} -gt 0 ]; then
+            cp previous/*.pkg.tar.zst /opt/localrepo/
+            (cd /opt/localrepo && repo-add localrepo.db.tar.zst *.pkg.tar.zst)
+          else
+            tar --zstd -cf /opt/localrepo/localrepo.db.tar.zst --files-from /dev/null
+            tar --zstd -cf /opt/localrepo/localrepo.files.tar.zst --files-from /dev/null
+            ln -sf localrepo.db.tar.zst /opt/localrepo/localrepo.db
+            ln -sf localrepo.files.tar.zst /opt/localrepo/localrepo.files
+          fi
+          sed -i '/^\[core\]/i [localrepo]\nSigLevel = Optional TrustAll\nServer = file:///opt/localrepo\n' /etc/pacman.conf
+          pacman -Sy
+
       - name: Build packages
         if: steps.detect.outputs.built_any == 'true'
         run: |
           mkdir -p output
-          for pkg_dir in ${{ steps.detect.outputs.pkgs_to_build }}; do
+          # Order packages so dependencies build first (e.g., scenefx0.5 before mangowm-git)
+          build_list="${{ steps.detect.outputs.pkgs_to_build }}"
+          if echo "$build_list" | grep -qw "scenefx0.5" && echo "$build_list" | grep -qw "mangowm-git"; then
+            build_list="$(echo "$build_list" | sed -E 's/\bscenefx0.5\b//g; s/\bmangowm-git\b/scenefx0.5 mangowm-git/g' | tr -s ' ' | sed 's/^ //;s/ $//')"
+          fi
+
+          for pkg_dir in $build_list; do
             [ -f "${pkg_dir}/PKGBUILD" ] || continue
             echo "::group::Building ${pkg_dir}"
             cd "$pkg_dir"
             su builder -c "makepkg -s --noconfirm --sign --skippgpcheck"
             cp *.pkg.tar.zst *.pkg.tar.zst.sig ../output/ 2>/dev/null || true
+            # Update local repo database and refresh pacman cache for next packages
+            shopt -s nullglob
+            new_pkgs=( *.pkg.tar.zst )
+            if [ ${#new_pkgs[@]} -gt 0 ]; then
+              cp "${new_pkgs[@]}" /opt/localrepo/
+              (cd /opt/localrepo && repo-add localrepo.db.tar.zst "${new_pkgs[@]}")
+              pacman -Sy
+            fi
             cd ..
             echo "::endgroup::"
           done
