@@ -2,11 +2,11 @@
 pkgname=gelly
 pkgver=1.16.0
 pkgrel=1
-pkgdesc="Music player for Jellyfin and Subsonic"
+pkgdesc="Jellyfin and Subsonic music player"
 url="https://github.com/Fingel/gelly"
 license=("GPL-3.0-or-later")
 depends=("libadwaita" "gst-plugins-good" "org.freedesktop.secrets")
-makedepends=("cargo" "gettext")
+makedepends=("cargo" "gettext" "cmake")
 arch=("x86_64" "aarch64")
 options=(!lto)
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Fingel/$pkgname/archive/refs/tags/v$pkgver.tar.gz")
@@ -22,6 +22,8 @@ build() {
     cd "$srcdir/$pkgname-$pkgver"
     export RUSTUP_TOOLCHAIN=stable
     export CARGO_TARGET_DIR=target
+    # Remove this once a fixed version of aws-lc is released. And the makedepends on cmake.
+    export AWS_LC_SYS_CMAKE_BUILDER=1
     LOCALEDIR=/usr/share/locale cargo build --frozen --release
 }
 
@@ -39,3 +41,4 @@ package() {
         msgfmt -o "$pkgdir/usr/share/locale/$lang/LC_MESSAGES/gelly.mo" "$po_file"
     done
 }
+

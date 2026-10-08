@@ -1,5 +1,5 @@
 pkgbase = gelly
-	pkgdesc = Music player for Jellyfin and Subsonic
+	pkgdesc = Jellyfin and Subsonic music player
 	pkgver = 1.16.0
 	pkgrel = 1
 	url = https://github.com/Fingel/gelly
@@ -8,6 +8,7 @@ pkgbase = gelly
 	license = GPL-3.0-or-later
 	makedepends = cargo
 	makedepends = gettext
+	makedepends = cmake
 	depends = libadwaita
 	depends = gst-plugins-good
 	depends = org.freedesktop.secrets
