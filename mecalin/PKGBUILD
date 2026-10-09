@@ -1,0 +1,24 @@
+pkgname=mecalin
+pkgver=2.0.0
+pkgrel=1
+pkgdesc="Learn how to type"
+arch=('x86_64')
+url="https://github.com/nacho/mecalin"
+license=('GPL-3.0-or-later')
+depends=('gcc-libs' 'glibc' 'gtk4' 'libadwaita')
+makedepends=('cargo' 'meson' 'ninja')
+source=("mecalin-${pkgver}.tar.gz::https://github.com/nacho/mecalin/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('83b44fa49f1e5563ce4b7c2b4ebb06631033e7dda3d97d981ebc6007867d7ebb')
+
+build() {
+  arch-meson "mecalin-${pkgver}" build
+  ninja -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  DESTDIR="${pkgdir}" ninja -C build install
+}

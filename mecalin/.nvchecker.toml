@@ -1,0 +1,5 @@
+[mecalin]
+source = "github"
+github = "nacho/mecalin"
+use_max_tag = true
+prefix = "v"

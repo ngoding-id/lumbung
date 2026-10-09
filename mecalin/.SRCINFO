@@ -1,0 +1,18 @@
+pkgbase = mecalin
+	pkgdesc = Learn how to type
+	pkgver = 2.0.0
+	pkgrel = 1
+	url = https://github.com/nacho/mecalin
+	arch = x86_64
+	license = GPL-3.0-or-later
+	makedepends = cargo
+	makedepends = meson
+	makedepends = ninja
+	depends = gcc-libs
+	depends = glibc
+	depends = gtk4
+	depends = libadwaita
+	source = mecalin-2.0.0.tar.gz::https://github.com/nacho/mecalin/archive/refs/tags/v2.0.0.tar.gz
+	sha256sums = 83b44fa49f1e5563ce4b7c2b4ebb06631033e7dda3d97d981ebc6007867d7ebb
+
+pkgname = mecalin
