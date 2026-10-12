@@ -9,7 +9,10 @@ url='https://github.com/php/frankenphp'
 license=('MIT')
 options=('!strip') # purego binary
 
-source=("LICENSE::https://raw.githubusercontent.com/php/frankenphp/refs/tags/v$pkgver/LICENSE")
+source=(
+    "LICENSE::https://raw.githubusercontent.com/php/frankenphp/refs/tags/v$pkgver/LICENSE"
+    "$pkgname.conf"
+)
 
 source_prefix="https://github.com/php/frankenphp/releases/download/v$pkgver/frankenphp-linux"
 source_x86_64=("frankenphp-$pkgver-x86_64::$source_prefix-x86_64")
@@ -20,7 +23,8 @@ source_aarch64=("frankenphp-$pkgver-aarch64::$source_prefix-aarch64")
 #sha256sums_aarch64=('5c60134942211779ac380e7ced2f18950a87d18ecbf1735849931c5201615383')
 
 # they keep changing the blobs after release...
-sha256sums=('96e04afcae74c52f02e43e693c97b5ba0c64694ba44c1c642d7f242cfe21d18c')
+sha256sums=('96e04afcae74c52f02e43e693c97b5ba0c64694ba44c1c642d7f242cfe21d18c'
+            'b12000344b90df1027b6a88666c4b8a097f5bc335b78f66459070fb72678010a')
 sha256sums_x86_64=('81d64e0e89a856e10cf6522ad09a61e1d71f0873877d9b6920f3754267f96040')
 sha256sums_aarch64=('eab2024c46bd807dc5c6831e245be138c4d80fa72595f15dd1dd18229c78a0ee')
 
