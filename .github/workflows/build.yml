@@ -240,6 +240,7 @@ jobs:
           name: "Package Build ${{ steps.tag.outputs.tag }}"
           body: |
             Automated AUR package build for **x86_64-v3**.
+            Note: **Personal repository. Packages may be dropped without notice if no longer needed..**
 
             ### Usage
 
