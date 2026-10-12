@@ -1,0 +1,5 @@
+[frankenphp]
+source = "github"
+github = "php/frankenphp"
+use_latest_release = true
+prefix = "v"
