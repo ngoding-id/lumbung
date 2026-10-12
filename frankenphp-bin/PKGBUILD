@@ -2,7 +2,7 @@
 
 pkgname=frankenphp-bin
 pkgver=1.13.0
-pkgrel=2
+pkgrel=3
 pkgdesc='FrankenPHP is a modern application server for PHP built on top of the Caddy web server.'
 arch=('x86_64' 'aarch64')
 url='https://github.com/php/frankenphp'
@@ -24,7 +24,7 @@ source_aarch64=("frankenphp-$pkgver-aarch64::$source_prefix-aarch64")
 
 # they keep changing the blobs after release...
 sha256sums=('96e04afcae74c52f02e43e693c97b5ba0c64694ba44c1c642d7f242cfe21d18c'
-            'fd1af9597b0ad664b8845aacecdd6b7d0de2e5cbaa9657ea0ccfd11d57d6f486')
+            'b2cd1c301bdd47a32d16db6d7aa8c0c75d55e990420aa393541ec5266545513e')
 sha256sums_x86_64=('81d64e0e89a856e10cf6522ad09a61e1d71f0873877d9b6920f3754267f96040')
 sha256sums_aarch64=('eab2024c46bd807dc5c6831e245be138c4d80fa72595f15dd1dd18229c78a0ee')
 
