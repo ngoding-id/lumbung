@@ -1,19 +1,19 @@
 pkgbase = frankenphp-bin
 	pkgdesc = FrankenPHP is a modern application server for PHP built on top of the Caddy web server.
-	pkgver = 1.13.0
+	pkgver = 1.13.1
 	pkgrel = 3
 	url = https://github.com/php/frankenphp
 	arch = x86_64
 	arch = aarch64
 	license = MIT
 	options = !strip
-	source = LICENSE::https://raw.githubusercontent.com/php/frankenphp/refs/tags/v1.13.0/LICENSE
+	source = LICENSE::https://raw.githubusercontent.com/php/frankenphp/refs/tags/v1.13.1/LICENSE
 	source = frankenphp-bin.conf
 	sha256sums = 96e04afcae74c52f02e43e693c97b5ba0c64694ba44c1c642d7f242cfe21d18c
 	sha256sums = b2cd1c301bdd47a32d16db6d7aa8c0c75d55e990420aa393541ec5266545513e
-	source_x86_64 = frankenphp-1.13.0-x86_64::https://github.com/php/frankenphp/releases/download/v1.13.0/frankenphp-linux-x86_64
-	sha256sums_x86_64 = 81d64e0e89a856e10cf6522ad09a61e1d71f0873877d9b6920f3754267f96040
-	source_aarch64 = frankenphp-1.13.0-aarch64::https://github.com/php/frankenphp/releases/download/v1.13.0/frankenphp-linux-aarch64
-	sha256sums_aarch64 = eab2024c46bd807dc5c6831e245be138c4d80fa72595f15dd1dd18229c78a0ee
+	source_x86_64 = frankenphp-1.13.1-x86_64::https://github.com/php/frankenphp/releases/download/v1.13.1/frankenphp-linux-x86_64
+	sha256sums_x86_64 = 0b5c93c63f02f796716287790028171dbe3af4740d76e1706e20e731312c4086
+	source_aarch64 = frankenphp-1.13.1-aarch64::https://github.com/php/frankenphp/releases/download/v1.13.1/frankenphp-linux-aarch64
+	sha256sums_aarch64 = 52849d80dcb30fceaefbe140ee1c16ccebedd96a5719d932f9828e8da7688d02
 
 pkgname = frankenphp-bin
