@@ -8,7 +8,7 @@ _javadir="/usr/lib/jvm/java-$_major-jetbrains"
 
 pkgname=jdk$_major-jetbrains-bin
 pkgver="$_major.${_minor}b$_build"
-pkgrel=1
+pkgrel=2
 pkgdesc="Java Development Kit by Jetbrains"
 arch=('x86_64' 'aarch64')
 url="https://github.com/JetBrains/JetBrainsRuntime"
@@ -30,10 +30,10 @@ provides=(
     "jre$_major-jetbrains-headless=$pkgver-$pkgrel"
 )
 conflicts=("jdk$_major-jetbrains" "jre$_major-jetbrains" "jre$_major-jetbrains-headless")
-source_x86_64=("$pkgname-$pkgver.tar.gz::https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk-$_major.$_minor-linux-x64-b$_build.tar.gz")
-sha512sums_x86_64=('5a7260e88b0ccf6cbf40f985fbdf0fb7a919c16a8c197694fa431859c9bbcd72323d57a10fd483be703db2a3bda1a04865ff7840cdde843bbd46c942436b7f20')
-sha512sums_aarch64=('5a7260e88b0ccf6cbf40f985fbdf0fb7a919c16a8c197694fa431859c9bbcd72323d57a10fd483be703db2a3bda1a04865ff7840cdde843bbd46c942436b7f20')
-source_aarch64=("$pkgname-$pkgver.tar.gz::https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk-$_major.$_minor-linux-aarch64-b$_build.tar.gz")
+source_x86_64=("$pkgname-$pkgver.tar.gz::https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-$_major.$_minor-linux-x64-b$_build.tar.gz")
+sha512sums_x86_64=('49ac0c4161b6f396e05be942fc65fe33df89e30f12b247b7f72260840e815a02440ba2b6a0246af6d8b80c29a7b766693b63932232c98103b14a5661be20fd88')
+sha512sums_aarch64=('49ac0c4161b6f396e05be942fc65fe33df89e30f12b247b7f72260840e815a02440ba2b6a0246af6d8b80c29a7b766693b63932232c98103b14a5661be20fd88')
+source_aarch64=("$pkgname-$pkgver.tar.gz::https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-$_major.$_minor-linux-aarch64-b$_build.tar.gz")
 
 package() {
     local _arch
@@ -43,7 +43,7 @@ package() {
     else
         _arch="$CARCH"
     fi
-    cd "jbrsdk-$_major.$_minor-linux-$_arch-b$_build"
+    cd "jbrsdk_jcef-$_major.$_minor-linux-$_arch-b$_build"
 
     install -dm 755 "$pkgdir$_javadir"
     cp -a bin include jmods lib release "$pkgdir$_javadir"
