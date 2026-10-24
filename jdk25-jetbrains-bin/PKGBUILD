@@ -8,11 +8,12 @@ _javadir="/usr/lib/jvm/java-$_major-jetbrains"
 
 pkgname=jdk$_major-jetbrains-bin
 pkgver="$_major.${_minor}b$_build"
-pkgrel=3
+pkgrel=4
 pkgdesc="Java Development Kit by Jetbrains"
 arch=('x86_64' 'aarch64')
 url="https://github.com/JetBrains/JetBrainsRuntime"
 license=('GPL-2.0-or-later')
+options=('!strip' '!debug')
 depends=(
     'java-runtime-common' 
     'ca-certificates-utils'
