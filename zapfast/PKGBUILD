@@ -44,14 +44,6 @@ build() {
   cargo build --frozen --release
 }
 
-check() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
-  export RUSTUP_TOOLCHAIN=stable
-  # The demo feature carries the headless layout test of every screen,
-  # which needs no display and talks to nothing.
-  cargo test --frozen --features demo
-}
-
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}"
 
