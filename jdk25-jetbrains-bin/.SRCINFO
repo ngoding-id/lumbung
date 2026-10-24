@@ -1,7 +1,7 @@
 pkgbase = jdk25-jetbrains-bin
 	pkgdesc = Java Development Kit by Jetbrains
 	pkgver = 25.0.4.1b635.78
-	pkgrel = 2
+	pkgrel = 3
 	url = https://github.com/JetBrains/JetBrainsRuntime
 	arch = x86_64
 	arch = aarch64

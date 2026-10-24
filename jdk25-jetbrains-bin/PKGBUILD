@@ -8,7 +8,7 @@ _javadir="/usr/lib/jvm/java-$_major-jetbrains"
 
 pkgname=jdk$_major-jetbrains-bin
 pkgver="$_major.${_minor}b$_build"
-pkgrel=2
+pkgrel=3
 pkgdesc="Java Development Kit by Jetbrains"
 arch=('x86_64' 'aarch64')
 url="https://github.com/JetBrains/JetBrainsRuntime"
@@ -55,4 +55,8 @@ package() {
     install -dm 755 "$pkgdir/etc"
     cp -ar conf "$pkgdir/etc/$pkgname"
     ln -s "/etc/$pkgname" "$pkgdir$_javadir/conf"
+
+    # Link JKS keystore from ca-certificates-utils
+    rm -f "${pkgdir}${_javadir}/lib/security/cacerts"
+    ln -sf /etc/ssl/certs/java/cacerts "${pkgdir}${_javadir}/lib/security/cacerts"
 }
