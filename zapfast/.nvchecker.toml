@@ -1,0 +1,5 @@
+[zapfast]
+source = "github"
+github = "crmne/zapfast"
+use_max_tag = true
+prefix = "v"
