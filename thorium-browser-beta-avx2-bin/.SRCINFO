@@ -1,7 +1,7 @@
 pkgbase = thorium-browser-beta-avx2-bin
 	pkgdesc = AVX2 and FMA beta build of the Chromium fork focused on performance
 	pkgver = 156.0.8078.28
-	pkgrel = 1
+	pkgrel = 2
 	url = https://github.com/gz83/thorium
 	arch = x86_64
 	license = BSD-3-Clause
@@ -61,11 +61,16 @@ pkgbase = thorium-browser-beta-avx2-bin
 	source = thorium-cpu-check.sh
 	source = thorium-shell.sh
 	source = thorium-browser-156.0.8078.28-LICENSE.md::https://github.com/gz83/thorium/raw/M156.0.8078.28/LICENSE.md
+	sha256sums = 1cf7d8a1d2dc0308a511705d0b82071be76cb2acff38ae758e12aa9f76fe739d
+	sha256sums = 291c3173af37c7bb47b0389d21733e062c0c43d08ea14eaa103c1c11ec31a743
+	sha256sums = 68304897ffdf3509e55fed5072926be412228f4b70db53dc0b18136f29b6668e
+	sha256sums = 1d43c681d483ed1bf2e88507be7368eea8d1dedc503d39b8e17e701d0be00fe2
 	b2sums = 038ce007f34bc9c519bcc1918ca472cf6596a1dade80b9b150021762a51cf28bc331bb82299110023593f569b9cf285c9ed60d695cfd2abf82d0bf9073ceeee5
 	b2sums = 94d79e416618975426d50a661d6edc0609a9f412defcce2a6a67a28ca52b57cf662f6c38105fbfc437626b5d21948779081960854d399478b08e37a4cbdd9fd0
 	b2sums = 867bc169f526a530a79d1eef5cc463d1c386d380bb574228a46492c9c85fc5dcdaa8768e08282dbe5ed660458613b67da8e3f822a3c9d93866e2252f3332b672
 	b2sums = fe17f16ad6a8911dc9c49de3e45fa450a2a3ef59ec2f5400daed74b4401cfe2426e5b52e8e2e519bbc9f2b110112e616578eaf57705605a75cc5e8fa9d820060
 	source_x86_64 = https://github.com/gz83/thorium/releases/download/M156.0.8078.28/thorium-browser_156.0.8078.28_AVX2.deb
 	sha256sums_x86_64 = 15496ebae54d15a946e1cad9ecc174f50008cc355e35be58ff339ec23bf00846
+	b2sums_x86_64 = 97538444ed5194aa7c6c51072a544b85105ac3336f1cbd1bc6239c88d0ae4227cec66ba3ccfbb888b6cd0becc999f6beb633f52e64c86481d6e8951ab67f7720
 
 pkgname = thorium-browser-beta-avx2-bin
