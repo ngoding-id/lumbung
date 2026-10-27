@@ -2,13 +2,13 @@
 
 _major=25
 _minor=0.4.1
-_build=635.78
+_build=635.79
 
 _javadir="/usr/lib/jvm/java-$_major-jetbrains"
 
 pkgname=jdk$_major-jetbrains-bin
 pkgver="$_major.${_minor}b$_build"
-pkgrel=4
+pkgrel=1
 pkgdesc="Java Development Kit by Jetbrains"
 arch=('x86_64' 'aarch64')
 url="https://github.com/JetBrains/JetBrainsRuntime"
@@ -32,8 +32,8 @@ provides=(
 )
 conflicts=("jdk$_major-jetbrains" "jre$_major-jetbrains" "jre$_major-jetbrains-headless")
 source_x86_64=("$pkgname-$pkgver.tar.gz::https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-$_major.$_minor-linux-x64-b$_build.tar.gz")
-sha512sums_x86_64=('49ac0c4161b6f396e05be942fc65fe33df89e30f12b247b7f72260840e815a02440ba2b6a0246af6d8b80c29a7b766693b63932232c98103b14a5661be20fd88')
-sha512sums_aarch64=('49ac0c4161b6f396e05be942fc65fe33df89e30f12b247b7f72260840e815a02440ba2b6a0246af6d8b80c29a7b766693b63932232c98103b14a5661be20fd88')
+sha512sums_x86_64=('bd828d009f11c14fe85fbe2ad74169a21692f3e0bdb2124c74f0a9f98b5d16e878fa806974a62186e52096a3c7ea1556eabd9481fe8f2ad384b7cb980357be5e')
+sha512sums_aarch64=('ec50db6dad63d210b83df7eecd35177eabfc0a07b264e1921ba3f01c6e396c2acf0c926bbd6bcedd820f24bf1ec6c4b345297cd32040b9fa25d39c4aa6d7b857')
 source_aarch64=("$pkgname-$pkgver.tar.gz::https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-$_major.$_minor-linux-aarch64-b$_build.tar.gz")
 
 package() {

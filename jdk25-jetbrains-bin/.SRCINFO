@@ -1,7 +1,7 @@
 pkgbase = jdk25-jetbrains-bin
 	pkgdesc = Java Development Kit by Jetbrains
-	pkgver = 25.0.4.1b635.78
-	pkgrel = 4
+	pkgver = 25.0.4.1b635.79
+	pkgrel = 1
 	url = https://github.com/JetBrains/JetBrainsRuntime
 	arch = x86_64
 	arch = aarch64
@@ -14,18 +14,18 @@ pkgbase = jdk25-jetbrains-bin
 	provides = java-environment-jetbrains=25
 	provides = java-runtime=25
 	provides = java-runtime-jetbrains=25
-	provides = jre25-jetbrains=25.0.4.1b635.78-4
+	provides = jre25-jetbrains=25.0.4.1b635.79-1
 	provides = java-runtime-headless=25
 	provides = java-runtime-headless-jetbrains=25
-	provides = jre25-jetbrains-headless=25.0.4.1b635.78-4
+	provides = jre25-jetbrains-headless=25.0.4.1b635.79-1
 	conflicts = jdk25-jetbrains
 	conflicts = jre25-jetbrains
 	conflicts = jre25-jetbrains-headless
 	options = !strip
 	options = !debug
-	source_x86_64 = jdk25-jetbrains-bin-25.0.4.1b635.78.tar.gz::https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-25.0.4.1-linux-x64-b635.78.tar.gz
-	sha512sums_x86_64 = 49ac0c4161b6f396e05be942fc65fe33df89e30f12b247b7f72260840e815a02440ba2b6a0246af6d8b80c29a7b766693b63932232c98103b14a5661be20fd88
-	source_aarch64 = jdk25-jetbrains-bin-25.0.4.1b635.78.tar.gz::https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-25.0.4.1-linux-aarch64-b635.78.tar.gz
-	sha512sums_aarch64 = 49ac0c4161b6f396e05be942fc65fe33df89e30f12b247b7f72260840e815a02440ba2b6a0246af6d8b80c29a7b766693b63932232c98103b14a5661be20fd88
+	source_x86_64 = jdk25-jetbrains-bin-25.0.4.1b635.79.tar.gz::https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-25.0.4.1-linux-x64-b635.79.tar.gz
+	sha512sums_x86_64 = bd828d009f11c14fe85fbe2ad74169a21692f3e0bdb2124c74f0a9f98b5d16e878fa806974a62186e52096a3c7ea1556eabd9481fe8f2ad384b7cb980357be5e
+	source_aarch64 = jdk25-jetbrains-bin-25.0.4.1b635.79.tar.gz::https://cache-redirector.jetbrains.com/intellij-jbr/jbrsdk_jcef-25.0.4.1-linux-aarch64-b635.79.tar.gz
+	sha512sums_aarch64 = ec50db6dad63d210b83df7eecd35177eabfc0a07b264e1921ba3f01c6e396c2acf0c926bbd6bcedd820f24bf1ec6c4b345297cd32040b9fa25d39c4aa6d7b857
 
 pkgname = jdk25-jetbrains-bin
