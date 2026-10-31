@@ -1,0 +1,27 @@
+pkgname=teclas
+pkgver=3.0.0
+pkgrel=1
+pkgdesc="A typing tutor application built with GTK4, Rust, and Adwaita"
+arch=('x86_64')
+url="https://github.com/nacho/teclas"
+license=('GPL-3.0-or-later')
+depends=('gcc-libs' 'glibc' 'gtk4' 'libadwaita')
+makedepends=('cargo' 'meson' 'ninja')
+source=("teclas-${pkgver}.tar.gz::https://github.com/nacho/teclas/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('41f5ea95d1eaf9f70b05c3a901e6241e145081bd99eb7f5b969fd6373a5050de')
+provides=('mecalin')
+conflicts=('mecalin')
+replaces=('mecalin')
+
+build() {
+  arch-meson "teclas-${pkgver}" build
+  ninja -C build
+}
+
+check() {
+  meson test -C build --print-errorlogs
+}
+
+package() {
+  DESTDIR="${pkgdir}" ninja -C build install
+}
