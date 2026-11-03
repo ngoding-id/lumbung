@@ -1,4 +1,0 @@
-[qtengine]
-source = "github"
-github = "kossLAN/qtengine"
-use_max_tag = true
