@@ -1,0 +1,4 @@
+[qt6ct-kde]
+source = "aur"
+aur = "qt6ct-kde"
+strip_release = true
