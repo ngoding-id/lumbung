@@ -1,0 +1,22 @@
+pkgbase = gelly-git
+	pkgdesc = Jellyfin and Subsonic music player
+	pkgver = 2.0.0.r7.g2ab09b4
+	pkgrel = 1
+	url = https://github.com/Gasiyu/gelly
+	arch = x86_64
+	arch = aarch64
+	license = GPL-3.0-or-later
+	makedepends = cargo
+	makedepends = gettext
+	makedepends = cmake
+	depends = libadwaita
+	depends = gst-plugins-good
+	depends = org.freedesktop.secrets
+	provides = gelly=2.0.0.r7.g2ab09b4
+	conflicts = gelly-bin
+	conflicts = gelly
+	options = !lto
+	source = gelly::git+https://github.com/Gasiyu/gelly.git
+	sha512sums = SKIP
+
+pkgname = gelly-git

@@ -1,0 +1,52 @@
+# Maintainer: Gasiyu <gasiyu ar proton me>
+# Contributor: Austin Riba <austin at m51 dot io>
+
+pkgname=gelly-git
+pkgver=2.0.0.r7.g2ab09b4
+pkgrel=1
+pkgdesc="Jellyfin and Subsonic music player"
+url="https://github.com/Gasiyu/gelly"
+license=("GPL-3.0-or-later")
+depends=("libadwaita" "gst-plugins-good" "org.freedesktop.secrets")
+makedepends=("cargo" "gettext" "cmake")
+arch=("x86_64" "aarch64")
+options=(!lto)
+provides=("${pkgname%-git}=${pkgver}")
+conflicts=("${pkgname%-git}-bin" "${pkgname%-git}")
+source=("${pkgname%-git}::git+$url.git")
+sha512sums=('SKIP')
+
+pkgver() {
+  cd "${pkgname%-git}"
+  git describe --long --tags --abbrev=7 | sed 's/\([^-]*-g\)/r\1/;s/-/./g;s/^v//'
+}
+
+prepare() {
+    cd "${pkgname%-git}"
+    export RUSTUP_TOOLCHAIN=stable
+    cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+    cd "${pkgname%-git}"
+    export RUSTUP_TOOLCHAIN=stable
+    export CARGO_TARGET_DIR=target
+    # Remove this once a fixed version of aws-lc is released. And the makedepends on cmake.
+    export AWS_LC_SYS_CMAKE_BUILDER=1
+    LOCALEDIR=/usr/share/locale cargo build --frozen --release
+}
+
+package() {
+    cd "${pkgname%-git}"
+    install -Dm 0755 target/release/gelly "$pkgdir/usr/bin/gelly"
+    install -Dm 0644 resources/io.m51.Gelly.desktop "$pkgdir/usr/share/applications/io.m51.Gelly.desktop"
+    install -Dm 0644 resources/io.m51.Gelly.metainfo.xml "$pkgdir/usr/share/metainfo/io.m51.Gelly.metainfo.xml"
+    install -Dm 0644 resources/io.m51.Gelly.gschema.xml "$pkgdir/usr/share/glib-2.0/schemas/io.m51.Gelly.gschema.xml"
+    install -Dm 0644 resources/io.m51.Gelly.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/io.m51.Gelly.svg"
+    install -Dm 0644 resources/io.m51.Gelly-symbolic.svg "$pkgdir/usr/share/icons/hicolor/symbolic/apps/io.m51.Gelly-symbolic.svg"
+    for po_file in po/*.po; do
+        lang=$(basename "$po_file" .po)
+        install -dm755 "$pkgdir/usr/share/locale/$lang/LC_MESSAGES"
+        msgfmt -o "$pkgdir/usr/share/locale/$lang/LC_MESSAGES/gelly.mo" "$po_file"
+    done
+}
