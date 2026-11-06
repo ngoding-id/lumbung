@@ -1,6 +1,6 @@
 pkgbase = teclas
 	pkgdesc = A typing tutor application built with GTK4, Rust, and Adwaita
-	pkgver = 3.0.0
+	pkgver = 3.1.0
 	pkgrel = 1
 	url = https://github.com/nacho/teclas
 	arch = x86_64
@@ -15,7 +15,7 @@ pkgbase = teclas
 	provides = mecalin
 	conflicts = mecalin
 	replaces = mecalin
-	source = teclas-3.0.0.tar.gz::https://github.com/nacho/teclas/archive/refs/tags/v3.0.0.tar.gz
-	sha256sums = 41f5ea95d1eaf9f70b05c3a901e6241e145081bd99eb7f5b969fd6373a5050de
+	source = teclas-3.1.0.tar.gz::https://github.com/nacho/teclas/archive/refs/tags/v3.1.0.tar.gz
+	sha256sums = 261d8287c6e125337cac5aa40a16e4562278b98f907384dd08300865ab8ec5cd
 
 pkgname = teclas
