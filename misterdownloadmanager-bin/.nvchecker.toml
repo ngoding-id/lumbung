@@ -1,0 +1,5 @@
+[misterdownloadmanager]
+source = "github"
+github = "anefzaoui/misterdownloadmanager"
+use_max_tag = true
+prefix = "v"
