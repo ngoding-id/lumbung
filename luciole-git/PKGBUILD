@@ -29,8 +29,10 @@ depends=(
   'libglvnd'
   'libpng'
   'librsvg'
+  'libsoup3'
   'libstdc++'
   'libxkbcommon'
+  'libxml2'
   'pango'
   'shared-mime-info'
   'tomlplusplus'
@@ -39,6 +41,8 @@ depends=(
 )
 makedepends=(
   'git'
+  'libsoup3'
+  'libxml2'
   'meson'
   'ninja'
   'nlohmann-json'
