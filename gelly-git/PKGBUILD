@@ -4,9 +4,10 @@
 pkgname=gelly-git
 pkgver=2.0.0.r7.g2ab09b4
 pkgrel=1
-pkgdesc="Jellyfin and Subsonic music player"
+pkgdesc="Jellyfin and Subsonic music player. Gasiyu's Fork."
 url="https://github.com/Gasiyu/gelly"
 license=("GPL-3.0-or-later")
+install=${pkgname}.install
 depends=("libadwaita" "gst-plugins-good" "org.freedesktop.secrets")
 makedepends=("cargo" "gettext" "cmake")
 arch=("x86_64" "aarch64")

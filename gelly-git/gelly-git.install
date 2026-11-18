@@ -1,0 +1,17 @@
+post_install() {
+    echo ""
+    echo "gelly-git"
+    echo "========================================="
+    echo "This package is a Gasiyu's fork of gelly."
+    echo "Report issues to: https://github.com/Gasiyu/gelly/issues"
+    echo ""
+}
+
+post_upgrade() {
+    echo ""
+    echo "gelly-git"
+    echo "========================================="
+    echo "This package is a Gasiyu's fork of gelly."
+    echo "Report issues to: https://github.com/Gasiyu/gelly/issues"
+    echo ""
+}
