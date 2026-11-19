@@ -1,5 +1,5 @@
 pkgname=teclas
-pkgver=3.1.0
+pkgver=3.1.1
 pkgrel=1
 pkgdesc="A typing tutor application built with GTK4, Rust, and Adwaita"
 arch=('x86_64')
@@ -8,7 +8,7 @@ license=('GPL-3.0-or-later')
 depends=('gcc-libs' 'glibc' 'gtk4' 'libadwaita')
 makedepends=('cargo' 'meson' 'ninja')
 source=("teclas-${pkgver}.tar.gz::https://github.com/nacho/teclas/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('261d8287c6e125337cac5aa40a16e4562278b98f907384dd08300865ab8ec5cd')
+sha256sums=('2d98e3eb3970f3da29397fa705738f51d1437e0ee0f97e1d18be9c6b68803ce7')
 provides=('mecalin')
 conflicts=('mecalin')
 replaces=('mecalin')
