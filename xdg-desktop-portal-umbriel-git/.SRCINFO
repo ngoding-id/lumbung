@@ -1,0 +1,40 @@
+pkgbase = xdg-desktop-portal-umbriel-git
+	pkgdesc = xdg-desktop-portal backend for the Umbriel compositor
+	pkgver = 0.1.0.r0.0
+	pkgrel = 4
+	url = https://github.com/noctalia-dev/xdg-desktop-portal-umbriel
+	arch = x86_64
+	arch = aarch64
+	license = MIT
+	makedepends = git
+	makedepends = libei>=1.3
+	makedepends = meson
+	makedepends = ninja
+	makedepends = nlohmann-json
+	makedepends = pkgconf
+	makedepends = stb
+	makedepends = wayland-protocols
+	depends = cairo
+	depends = fontconfig
+	depends = freetype2
+	depends = gcc-libs
+	depends = glib2
+	depends = glibc
+	depends = harfbuzz
+	depends = libdrm
+	depends = libglvnd
+	depends = libpipewire
+	depends = libxkbcommon
+	depends = mesa
+	depends = pango
+	depends = sdbus-cpp
+	depends = tomlplusplus
+	depends = wayland
+	depends = xdg-desktop-portal
+	optdepends = slurp: color picking
+	provides = xdg-desktop-portal-umbriel
+	conflicts = xdg-desktop-portal-umbriel
+	source = git+https://github.com/noctalia-dev/xdg-desktop-portal-umbriel.git#branch=main
+	b2sums = SKIP
+
+pkgname = xdg-desktop-portal-umbriel-git
