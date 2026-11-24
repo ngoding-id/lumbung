@@ -1,5 +1,0 @@
-[darkly]
-source = "github"
-github = "Bali10050/darkly"
-use_max_tag = true
-prefix = "v"
