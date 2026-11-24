@@ -1,9 +1,0 @@
-*
-!PKGBUILD
-!.SRCINFO
-!.gitignore
-!.nvchecker.toml
-!*.install
-!*.desktop
-!*.sh
-!*.patch
